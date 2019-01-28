@@ -53,7 +53,7 @@ namespace symptest.Models
             return input.ToDataTable();
         }
 
-        public static async Task<byte[]> CreateExcelFileAsync(IHostingEnvironment hostingenviron, DataTable inputTable = null, string OutputFilename = "Export")
+        public static async Task<byte[]> CreateExcelFileAsync(IHostingEnvironment hostingenviron, DataTable inputTable = null)
         {
             /// creates an Excel file, returning it to the user without changing the page
             /// currently creates a predefined dummy file
@@ -64,14 +64,14 @@ namespace symptest.Models
 
             /*
             
-            private readonly IHostingEnvironment _hostingEnvironment
+            private readonly IHostingEnvironment _hostingEnvironment;
 
             public HomeController(IHostingEnvironment environment)
             {
                 _hostingEnvironment = environment;
             }
             
-            public async Task<IActionResult> Export(DataTable inputTable, string OutputFilename = "Export")
+            public async Task<IActionResult> Export(DataTable inputTable, string OutputFilename = "Export.xlsx")
             {// creates an Excel file, returning it to the user without changing the page
                 byte[] memory = await ExportHandler.CreateExcelFileAsync(_hostingEnvironment, inputTable); // creates a dummy file if you don't include an inputTable (consider HH_client_manager.Models.Database.DataTableExtensions for an objectlist.ToDataTable<objecttype>() method)
                 //send file in memory to user
@@ -85,7 +85,7 @@ namespace symptest.Models
             if (inputTable != null){} else { // if no input table, generates dummy data on Clients to use instead
                 inputTable = GenerateDummyClientsDataTable();
             }
-            OutputFilename += ".xlsx"; // ensures filename ends in correct extension
+            string OutputFilename = "ToExport.xlsx"; // this will not be the filename the person downloading will see
 
 
 
