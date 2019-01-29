@@ -89,6 +89,30 @@ namespace symptest.Models
             return html;
         }
 
+        public static void SetColumnsOrder(this DataTable table, params String[] columnNames)
+        {
+            /// via https://stackoverflow.com/questions/3757997/how-to-change-datatable-columns-order
+            int columnIndex = 0;
+            foreach (var columnName in columnNames)
+            {
+                table.Columns[columnName].SetOrdinal(columnIndex);
+                columnIndex++;
+            }
+        }
+
+        public static DataTable FilterByColumns(this DataTable input_table, string[] column_names)
+        {
+            /// Takes an input DataTable, and returns a new one with only the specified columns, in the order the column names are listed.
+            /// 
+            DataView view = new DataView(input_table);
+            DataTable output = view.ToTable(false, column_names);
+
+            // properly order the remaining columns
+            output.SetColumnsOrder(column_names);
+
+            // ship out
+            return output;
+        }
     }
 
 }
