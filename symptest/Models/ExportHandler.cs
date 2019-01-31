@@ -84,7 +84,6 @@ namespace symptest.Models
             }
             return output_table;
         }
-
         #endregion
 
         public static async Task<byte[]> CreateExcelFileAsync(IHostingEnvironment hostingenviron, DataTable inputTable = null, string[] ChartAxes = null)
@@ -244,7 +243,6 @@ namespace symptest.Models
             }
 
             // move file from saved-on-server to server-memory
-            // TODO: cost/benefit analysis of current method vs finding way to delete file after returning it to browser
             using (var stream = new FileStream(Path.Combine(sWebRootFolder, OutputFilename), FileMode.Open))
             {
                 await stream.CopyToAsync(memory);
